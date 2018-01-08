@@ -5,4 +5,11 @@ Rails.application.routes.draw do
     resources :reports, only: [:create]
   end
   resources :trade, only: [:create]
+
+  scope "/statistics" do
+    get "/infected", to: "statistics#infected"
+    get "/non_infected", to: "statistics#non_infected"
+    get "/resources_average", to: "statistics#resources_average"
+    get "/points_lost", to: "statistics#points_lost"
+  end
 end
