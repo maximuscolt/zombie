@@ -12,6 +12,14 @@ class Trade
 
     def enough
         
+    @a.each  {|x|
+    begin
+        raise "not enough itemsrt" unless @trader1.inventories.find_by(resource_id: x.values[0]).quantity >= x.values[2]
+    rescue  NoMethodError => e
+        raise "item not found"
+    end
+        
+    }
     @b.each  {|x|
         begin
             raise "not enough items" unless @trader2.inventories.find_by(resource_id: x.values[0]).quantity >= x.values[2]
@@ -22,23 +30,20 @@ class Trade
                
     }
 
+
+    ActiveRecord::Base.transaction do
     @a.each  {|x|
-        begin
-            raise "not enough items" unless @trader1.inventories.find_by(resource_id: x.values[0]).quantity >= x.values[2]
-        rescue  NoMethodError => e
-            raise "item not found"
-        end
+        @trader1.inventories.find_by(resource_id: x.values[0]).decrement!(:quantity,x.values[2])
+        Inventory.where(resource_id: x.values[0],survivor_id:@trader2.id).first_or_create.increment!(:quantity,x.values[2])
+        
         
     }
 
-    @a.each  {|x|
-            @trader1.inventories.find_by(resource_id: x.values[0]).decrement!(:quantity,x.values[2])
-    }
-
     @b.each  {|x|
-    @trader2.inventories.find_by(resource_id: x.values[0]).increment!(:quantity,x.values[2])
+        @trader2.inventories.find_by(resource_id: x.values[0]).decrement!(:quantity,x.values[2])
+        Inventory.where(resource_id: x.values[0],survivor_id:@trader1.id).first_or_create.increment!(:quantity,x.values[2])
     }
-
+    end
       
     end
 

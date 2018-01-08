@@ -1,24 +1,79 @@
 # README
+API solução para o Zombie Survival Social Network
+utilizar o comando rails server no console para executar
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Segue exemplos de chamadas
 
-Things you may want to cover:
+-Add survivors
 
-* Ruby version
+method
+POST
 
-* System dependencies
+url
+survivors/
 
-* Configuration
+example JSON
 
-* Database creation
+{"survivor": {"name":"Maria","age": "30","gender":"female","latitude": 1200,"longitude":1300,"inventory": { "Ammunition": 5,"Water":2 }}}
 
-* Database initialization
+-list all survivors
 
-* How to run the test suite
+method
+GET
 
-* Services (job queues, cache servers, search engines, etc.)
+url
+/survivors/
 
-* Deployment instructions
+-show survivor
 
-* ...
+method
+GET
+
+url
+/survivors/:id
+
+example
+http://localhost:3000/survivors/2
+
+-Update survivor location
+
+method
+PUT
+
+url
+/survivors/:id/location
+
+example url
+http://localhost:3000/survivors/9/location
+
+example JSON
+{"latitude": 25,"longitude":30}
+
+
+-Flag survivor as infected
+
+method
+POST
+
+url
+/survivors/:id/reports
+
+example url
+http://localhost:3000/survivors/5/reports
+
+example JSON
+{"reporter": 30}
+
+-Trade Items
+
+method
+POST
+
+url
+/trade
+
+example url
+http://localhost:3000/trade
+
+example JSON
+[{"survivor_id": 1, "items": {"Water": 2}}, {"survivor_id": 1, "items": {"Water": 1}}]

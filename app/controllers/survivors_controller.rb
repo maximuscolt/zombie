@@ -11,6 +11,7 @@ class SurvivorsController < ApplicationController
   # GET /survivors/1
   def show
     render json: @survivor
+    # render json: @survivor, :include => {:inventories => {:only => [:quantity,:id]}}
   end
 
   # POST /survivors
@@ -18,7 +19,7 @@ class SurvivorsController < ApplicationController
     @survivor = Survivor.new(survivor_params)
 
     if @survivor.save
-      render json: @survivor, status: :created, location: @survivor
+      render json: @survivor, status: :created
     else
       render json: @survivor.errors, status: :unprocessable_entity
     end
