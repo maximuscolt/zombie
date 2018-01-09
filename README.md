@@ -1,5 +1,9 @@
 # README
 API solução para o Zombie Survival Social Network
+No console utilizar os seguintes comandos para instalar gems e iniciar a base de dados: 
+bundle install 
+rake db:setup
+
 utilizar o comando rails server no console para executar
 
 Segue exemplos de chamadas
@@ -10,7 +14,7 @@ method
 POST
 
 url
-survivors/
+/survivors/
 
 example JSON
 
@@ -77,3 +81,13 @@ http://localhost:3000/trade
 
 example JSON
 [{"survivor_id": 1, "items": {"Water": 2}}, {"survivor_id": 1, "items": {"Water": 1}}]
+
+-relatórios
+
+method
+GET
+
+/infected
+/non_infected
+/resources_average
+/points_lost
